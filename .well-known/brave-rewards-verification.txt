@@ -1,4 +1,0 @@
-This is a Brave Rewards publisher verification file.
-
-Domain: sainathsingineedi.me
-Token: 5de4ea5ac75265dd41cda04af8f29b6cefa1a183cbeb3c5d4558f8de500c1d24 
