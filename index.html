@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sainath Singineedi</title>
+<meta name="description" content="Software Engineer at Uber. Open source contributions to Rust, observability and distributed systems projects.">
+
+<meta property="og:title" content="Sainath Singineedi">
+<meta property="og:description" content="Software Engineer at Uber. Open source contributions to Rust, observability and distributed systems projects.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sainad2222.github.io/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<script>
+  // Set the theme before first paint so the page never flashes the wrong one.
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+</script>
+</head>
+<body>
+
+<a class="skip-link" href="#contributions">Skip to contributions</a>
+
+<div class="page">
+
+  <header class="intro">
+    <div class="intro-top">
+      <div>
+        <h1>Sainath Singineedi</h1>
+        <p class="role">Software Engineer at Uber</p>
+      </div>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch theme">
+        <span aria-hidden="true" class="theme-toggle-icon"></span>
+      </button>
+    </div>
+
+    <p class="positioning">
+      I work on infrastructure in the open: Rust systems, observability pipelines and
+      distributed databases. This page is the record of what I have shipped upstream.
+    </p>
+
+    <nav class="links" aria-label="Profiles and contact">
+      <a href="https://github.com/sainad2222">GitHub</a>
+      <a href="https://linkedin.com/in/sainathsingineedi/">LinkedIn</a>
+      <a href="mailto:sainathsingineedi2222@gmail.com">Email</a>
+      <a href="https://drive.google.com/file/d/1tZ9vTkaK74PYTYAMEEvw_pjoWxG9ru6i/view?usp=sharing">Resume</a>
+    </nav>
+
+    <dl class="stats" id="stats"></dl>
+  </header>
+
+  <main>
+    <section id="contributions" class="section">
+      <div class="section-head">
+        <div>
+          <h2>Merged</h2>
+          <p class="section-note">Selected work from 2023 onward. Everything earlier is on GitHub.</p>
+        </div>
+        <div class="filters" id="filters" role="group" aria-label="Filter contributions by topic"></div>
+      </div>
+      <ol class="contrib-list" id="merged-list"></ol>
+      <p class="empty" id="merged-empty" hidden>No contributions match that filter.</p>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>In flight</h2>
+      </div>
+      <ol class="contrib-list" id="open-list"></ol>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>
+      <a href="https://github.com/sainad2222">github.com/sainad2222</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <a href="mailto:sainathsingineedi2222@gmail.com">sainathsingineedi2222@gmail.com</a>
+    </p>
+    <p class="footnote" id="stars-footnote"></p>
+  </footer>
+
+</div>
+
+<script src="data/contributions.js"></script>
+<script src="data/stars.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
