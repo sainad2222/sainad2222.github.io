@@ -5,17 +5,17 @@
 window.STARS = {
   "updated": "2026-09-07",
   "repos": {
-    "commonwarexyz/monorepo": 610,
+    "commonwarexyz/monorepo": 611,
     "databendlabs/openraft": 2045,
-    "gitui-org/gitui": 22469,
-    "keephq/keep": 12290,
-    "mxsm/rocketmq-rust": 1509,
-    "open-telemetry/opentelemetry-collector-contrib": 4905,
-    "openobserve/openobserve": 21667,
-    "parseablehq/parseable": 2452,
+    "gitui-org/gitui": 22470,
+    "keephq/keep": 12291,
+    "mxsm/rocketmq-rust": 1510,
+    "open-telemetry/opentelemetry-collector-contrib": 4907,
+    "openobserve/openobserve": 21670,
+    "parseablehq/parseable": 2453,
     "robustmq/robustmq": 1795,
-    "tokio-rs/tokio": 33086,
-    "vectordotdev/vector": 22516,
+    "tokio-rs/tokio": 33088,
+    "vectordotdev/vector": 22518,
     "vectordotdev/vrl": 244
   }
 };
