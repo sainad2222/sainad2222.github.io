@@ -33,32 +33,8 @@
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    color-scheme: light;
-
-    --bg: #fbf9f6;
-    --bg-soft: #f4f1ec;
-    --surface: #ffffff;
-    --surface-hover: #f7f4f0;
-    --border: #e7e0d8;
-    --border-strong: #cec4b8;
-
-    --text: #1a1613;
-    --text-dim: #5c534b;
-    --text-faint: #857a70;
-
-    --accent: #a8541a;
-    --accent-soft: rgba(168, 84, 26, 0.10);
-    --merged: #7c4dcc;
-    --merged-soft: rgba(124, 77, 204, 0.12);
-    --open: #2b7a3d;
-    --open-soft: rgba(43, 122, 61, 0.12);
-
-    --shadow: 0 1px 2px rgba(26, 22, 19, 0.06);
-  }
-}
-
+/* Dark is the default. Light is opt-in through the toggle only, so the
+   system preference deliberately does not switch the page. */
 :root[data-theme="light"] {
   color-scheme: light;
 

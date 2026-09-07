@@ -177,16 +177,9 @@
 
     btn.addEventListener('click', function () {
       var root = document.documentElement;
-      var current = root.getAttribute('data-theme');
-      if (!current) {
-        // No explicit choice yet, so read the system preference. Where
-        // matchMedia is unavailable, fall back to dark, which is what the
-        // stylesheet renders by default.
-        var prefersLight = window.matchMedia
-          ? window.matchMedia('(prefers-color-scheme: light)').matches
-          : false;
-        current = prefersLight ? 'light' : 'dark';
-      }
+      // Unstamped means dark: the stylesheet has no system-preference
+      // override, so dark is what an untouched page renders.
+      var current = root.getAttribute('data-theme') || 'dark';
       var next = current === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
       try { localStorage.setItem('theme', next); } catch (e) {}
