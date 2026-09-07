@@ -4,8 +4,12 @@
   var data = window.CONTRIBUTIONS || [];
   var stars = (window.STARS && window.STARS.repos) || {};
 
-  // First merged pull request, October 2019. The list above starts at 2023
-  // because the years before it were single-line README and Hacktoberfest edits.
+  // Exactly one of these is expected on every entry. It drives the language
+  // badge and the Language filter; every other tag is an Area filter.
+  var LANGUAGES = ['rust', 'go', 'python'];
+
+  // First merged pull request, October 2019. The list starts at 2023 because
+  // the years before it were single-line README and Hacktoberfest edits.
   var FIRST_YEAR = 2019;
 
   /* ---------- formatting ---------- */
@@ -32,6 +36,17 @@
     return node;
   }
 
+  function languageOf(entry) {
+    for (var i = 0; i < entry.tags.length; i++) {
+      if (LANGUAGES.indexOf(entry.tags[i]) !== -1) return entry.tags[i];
+    }
+    return null;
+  }
+
+  function areasOf(entry) {
+    return entry.tags.filter(function (t) { return LANGUAGES.indexOf(t) === -1; });
+  }
+
   /* ---------- rows ---------- */
 
   function renderRow(entry) {
@@ -53,7 +68,10 @@
     head.appendChild(prs);
 
     var meta = el('div', 'meta');
-    meta.appendChild(el('span', 'badge ' + entry.state, entry.state));
+
+    var language = languageOf(entry);
+    if (language) meta.appendChild(el('span', 'badge lang-' + language, language));
+
     var count = stars[entry.repo];
     var pretty = formatStars(count);
     if (pretty) {
@@ -61,9 +79,9 @@
       s.title = count.toLocaleString() + ' stars on ' + entry.repo;
       meta.appendChild(s);
     }
+
     meta.appendChild(el('span', 'date', formatDate(entry.date)));
     head.appendChild(meta);
-
     li.appendChild(head);
 
     var h3 = el('h3', 'contrib-title');
@@ -74,41 +92,43 @@
 
     li.appendChild(el('p', 'contrib-problem', entry.problem));
 
-    if (entry.tags && entry.tags.length) {
+    // Language already reads as the badge above, so only areas repeat here.
+    var areas = areasOf(entry);
+    if (areas.length) {
       var tags = el('ul', 'tags');
-      entry.tags.forEach(function (t) { tags.appendChild(el('li', 'tag', t)); });
+      areas.forEach(function (t) { tags.appendChild(el('li', 'tag', t)); });
       li.appendChild(tags);
     }
 
     return li;
   }
 
-  function fill(listEl, entries) {
-    listEl.textContent = '';
-    entries.forEach(function (e) { listEl.appendChild(renderRow(e)); });
-  }
+  /* ---------- data ---------- */
 
-  /* ---------- data slices ---------- */
+  var entries = data.slice().sort(function (a, b) {
+    return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
+  });
 
-  function byDateDesc(a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; }
-
-  var merged = data.filter(function (e) { return e.state === 'merged'; }).sort(byDateDesc);
-  var open = data.filter(function (e) { return e.state === 'open'; }).sort(byDateDesc);
-
-  function countPrs(entries) {
-    return entries.reduce(function (n, e) { return n + e.prs.length; }, 0);
+  function countPrs(list) {
+    return list.reduce(function (n, e) { return n + e.prs.length; }, 0);
   }
 
   /* ---------- stats ---------- */
 
   function renderStats() {
     var repos = {};
-    data.forEach(function (e) { repos[e.repo] = true; });
+    entries.forEach(function (e) { repos[e.repo] = true; });
+
+    var languages = {};
+    entries.forEach(function (e) {
+      var l = languageOf(e);
+      if (l) languages[l] = true;
+    });
 
     var stats = [
-      ['Merged PRs', String(countPrs(merged))],
+      ['Merged PRs', String(countPrs(entries))],
       ['Repositories', String(Object.keys(repos).length)],
-      ['Open PRs', String(countPrs(open))],
+      ['Languages', String(Object.keys(languages).length)],
       ['Contributing since', String(FIRST_YEAR)]
     ];
 
@@ -127,44 +147,72 @@
 
   function renderFilters() {
     var counts = {};
-    merged.forEach(function (e) {
-      (e.tags || []).forEach(function (t) { counts[t] = (counts[t] || 0) + 1; });
+    entries.forEach(function (e) {
+      e.tags.forEach(function (t) { counts[t] = (counts[t] || 0) + 1; });
     });
 
-    var tags = Object.keys(counts).sort(function (a, b) {
+    var byCount = function (a, b) {
       return counts[b] - counts[a] || a.localeCompare(b);
-    });
+    };
 
+    var groups = [
+      { key: 'language', label: 'Language',
+        tags: LANGUAGES.filter(function (t) { return counts[t]; }) },
+      { key: 'area', label: 'Area',
+        tags: Object.keys(counts).filter(function (t) {
+          return LANGUAGES.indexOf(t) === -1;
+        }).sort(byCount) }
+    ];
+
+    var active = { language: null, area: null };
     var wrap = document.getElementById('filters');
     var listEl = document.getElementById('merged-list');
     var emptyEl = document.getElementById('merged-empty');
-    var active = null;
+
+    function matches(entry) {
+      return (!active.language || entry.tags.indexOf(active.language) !== -1)
+          && (!active.area || entry.tags.indexOf(active.area) !== -1);
+    }
 
     function apply() {
-      var shown = active
-        ? merged.filter(function (e) { return (e.tags || []).indexOf(active) !== -1; })
-        : merged;
-      fill(listEl, shown);
+      var shown = entries.filter(matches);
+      listEl.textContent = '';
+      shown.forEach(function (e) { listEl.appendChild(renderRow(e)); });
       emptyEl.hidden = shown.length > 0;
     }
 
-    function makeChip(label, value) {
-      var chip = el('button', 'chip', label);
-      chip.type = 'button';
-      chip.setAttribute('aria-pressed', String(active === value));
-      chip.addEventListener('click', function () {
-        active = (active === value) ? null : value;
-        Array.prototype.forEach.call(wrap.children, function (c) {
-          c.setAttribute('aria-pressed', String(c.dataset.value === (active || '')));
+    groups.forEach(function (group) {
+      var row = el('div', 'filter-group');
+      row.setAttribute('role', 'group');
+      row.setAttribute('aria-label', 'Filter by ' + group.label.toLowerCase());
+      row.appendChild(el('span', 'filter-label', group.label));
+
+      var chips = [];
+
+      function select(value) {
+        active[group.key] = value;
+        chips.forEach(function (c) {
+          c.setAttribute('aria-pressed', String((c.dataset.value || null) === value));
         });
         apply();
-      });
-      chip.dataset.value = value || '';
-      return chip;
-    }
+      }
 
-    wrap.appendChild(makeChip('all', null));
-    tags.forEach(function (t) { wrap.appendChild(makeChip(t, t)); });
+      function addChip(label, value) {
+        var chip = el('button', 'chip', label);
+        chip.type = 'button';
+        chip.dataset.value = value || '';
+        chip.setAttribute('aria-pressed', String(active[group.key] === value));
+        chip.addEventListener('click', function () {
+          select(active[group.key] === value ? null : value);
+        });
+        chips.push(chip);
+        row.appendChild(chip);
+      }
+
+      addChip('all', null);
+      group.tags.forEach(function (t) { addChip(t + ' ' + counts[t], t); });
+      wrap.appendChild(row);
+    });
 
     apply();
   }
@@ -197,7 +245,6 @@
 
   renderStats();
   renderFilters();
-  fill(document.getElementById('open-list'), open);
   renderFootnote();
   initTheme();
 })();

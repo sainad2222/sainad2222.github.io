@@ -19,12 +19,14 @@
   --accent: #d1782f;
   --accent-soft: rgba(209, 120, 47, 0.15);
 
-  /* Merged purple and open green are the colours this audience already reads
-     as pull request state on GitHub. Semantic, deliberately not the accent. */
-  --merged: #b083f0;
-  --merged-soft: rgba(176, 131, 240, 0.16);
-  --open: #57ac5b;
-  --open-soft: rgba(87, 172, 91, 0.16);
+  /* One hue per language. Semantic, and separate from the accent except for
+     Rust, which the accent was already named after. */
+  --lang-rust: #d1782f;
+  --lang-rust-soft: rgba(209, 120, 47, 0.15);
+  --lang-go: #4ec5dd;
+  --lang-go-soft: rgba(78, 197, 221, 0.15);
+  --lang-python: #e6c15a;
+  --lang-python-soft: rgba(230, 193, 90, 0.15);
 
   --sans: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -51,10 +53,12 @@
 
   --accent: #a8541a;
   --accent-soft: rgba(168, 84, 26, 0.10);
-  --merged: #7c4dcc;
-  --merged-soft: rgba(124, 77, 204, 0.12);
-  --open: #2b7a3d;
-  --open-soft: rgba(43, 122, 61, 0.12);
+  --lang-rust: #a8541a;
+  --lang-rust-soft: rgba(168, 84, 26, 0.12);
+  --lang-go: #0d7d99;
+  --lang-go-soft: rgba(13, 125, 153, 0.12);
+  --lang-python: #8a6a12;
+  --lang-python-soft: rgba(138, 106, 18, 0.12);
 
   --shadow: 0 1px 2px rgba(26, 22, 19, 0.06);
 }
@@ -244,7 +248,7 @@ h1 {
   flex-wrap: wrap;
   gap: 14px;
   padding-bottom: 14px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -270,8 +274,26 @@ h2 {
 
 .filters {
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.filter-group {
+  display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 6px;
+}
+
+.filter-label {
+  flex: none;
+  width: 64px;
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
 }
 
 .chip {
@@ -290,6 +312,8 @@ h2 {
   color: var(--text);
   border-color: var(--border-strong);
 }
+
+.chip { font-variant-numeric: tabular-nums; }
 
 .chip[aria-pressed="true"] {
   color: var(--accent);
@@ -373,13 +397,15 @@ h2 {
 .badge {
   padding: 2px 8px;
   border-radius: 999px;
+  font-family: var(--mono);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.02em;
 }
 
-.badge.merged { color: var(--merged); background: var(--merged-soft); }
-.badge.open { color: var(--open); background: var(--open-soft); }
+.badge.lang-rust   { color: var(--lang-rust);   background: var(--lang-rust-soft); }
+.badge.lang-go     { color: var(--lang-go);     background: var(--lang-go-soft); }
+.badge.lang-python { color: var(--lang-python); background: var(--lang-python-soft); }
 
 .contrib-title {
   margin: 10px 0 0;
@@ -455,6 +481,7 @@ h2 {
   .positioning { font-size: 16px; }
   .stat { min-width: calc(50% - 6px); }
   .meta { margin-left: 0; width: 100%; }
+  .filter-label { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

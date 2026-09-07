@@ -3,20 +3,18 @@
  * Star counts for every repo named in contributions.js, refreshed weekly.
  */
 window.STARS = {
-  "updated": "2026-09-06",
+  "updated": "2026-09-07",
   "repos": {
-    "apache/datafusion": 9282,
     "commonwarexyz/monorepo": 610,
     "databendlabs/openraft": 2045,
-    "gitui-org/gitui": 22466,
+    "gitui-org/gitui": 22469,
     "keephq/keep": 12290,
     "mxsm/rocketmq-rust": 1509,
     "open-telemetry/opentelemetry-collector-contrib": 4905,
-    "openobserve/openobserve": 21666,
-    "parseablehq/parseable": 2451,
+    "openobserve/openobserve": 21667,
+    "parseablehq/parseable": 2452,
     "robustmq/robustmq": 1795,
-    "rust-lang/rust": 117527,
-    "tokio-rs/tokio": 33082,
+    "tokio-rs/tokio": 33086,
     "vectordotdev/vector": 22516,
     "vectordotdev/vrl": 244
   }

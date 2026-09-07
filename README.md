@@ -22,7 +22,6 @@ Append one object to `data/contributions.js`:
   "prs": [{ "n": 1234, "url": "https://github.com/owner/name/pull/1234" }],
   "title": "What the change was",
   "date": "2026-09-06",
-  "state": "merged",
   "problem": "What was broken or missing, and why it mattered. Two sentences.",
   "tags": ["rust", "observability"]
 }
@@ -31,9 +30,14 @@ Append one object to `data/contributions.js`:
 That is the whole edit. The stat strip, the filter chips and the ordering all derive
 from this file, so nothing else needs updating.
 
+- Only merged work belongs here.
 - `prs` is a list, so one entry can cover a group of PRs that landed as one piece of work.
-- `state` is `merged` or `open`. Open entries render under "In flight".
-- `tags` are free-form. A tag becomes a filter chip as soon as one entry uses it.
+- `tags` needs **exactly one language** (`rust`, `go` or `python`). It becomes the coloured
+  badge on the row and the Language filter. Every other tag becomes an Area filter and
+  shows as a chip under the description.
+- To add a language, put it in the `LANGUAGES` list at the top of `app.js` and add a
+  `--lang-<name>` colour pair in `styles.css`, in both the dark and light blocks. Without
+  that the row renders no badge.
 - Star counts are deliberately absent. They live in `data/stars.js`, keyed by repo.
 
 ## Star counts
