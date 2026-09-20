@@ -14,6 +14,14 @@
  */
 window.CONTRIBUTIONS = [
   {
+    "repo": "GreptimeTeam/greptimedb",
+    "prs": [{ "n": 9060, "url": "https://github.com/GreptimeTeam/greptimedb/pull/9060" }],
+    "title": "Expose region min/max timestamps in region_statistics",
+    "date": "2026-09-19",
+    "problem": "Region statistics reported to metasrv had no minimum or maximum timestamp, so there was no way to read a region's time range from information_schema.region_statistics. Added min_timestamp and max_timestamp columns, collecting the range from memtable and SST metadata in mito2, exposing it as millisecond-resolution timestamps and merging the metric engine's data and metadata regions; empty regions return NULL.",
+    "tags": ["rust", "databases"]
+  },
+  {
     "repo": "open-telemetry/opentelemetry-collector-contrib",
     "prs": [{ "n": 50780, "url": "https://github.com/open-telemetry/opentelemetry-collector-contrib/pull/50780" }],
     "title": "Add a double_value precision operator to pmetricassert",

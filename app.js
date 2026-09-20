@@ -63,6 +63,8 @@
       if (i > 0) prs.appendChild(document.createTextNode(' '));
       var a = el('a', 'pr-link', '#' + pr.n);
       a.href = pr.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
       prs.appendChild(a);
     });
     head.appendChild(prs);
@@ -91,6 +93,8 @@
     var h3 = el('h3', 'contrib-title');
     var link = el('a', 'stretched', entry.title);
     link.href = entry.prs[0].url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
     h3.appendChild(link);
     li.appendChild(h3);
 
