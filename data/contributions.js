@@ -19,7 +19,8 @@ window.CONTRIBUTIONS = [
     "title": "Add a double_value precision operator to pmetricassert",
     "date": "2026-09-06",
     "problem": "pmetricassert compared float metric values exactly, so any test over data that drifts in its last decimal places had no way to assert equality within a tolerance. Added a precision operator with tests covering both a value that drifts below the stated precision and one that drifts at it.",
-    "tags": ["go", "observability"]
+    "tags": ["go", "observability"],
+    "featured": true
   },
   {
     "repo": "parseablehq/parseable",
@@ -78,7 +79,8 @@ window.CONTRIBUTIONS = [
     "title": "New Keep sink",
     "date": "2025-01-23",
     "problem": "Vector had no way to forward events into Keep, so alerts had to be routed through a generic HTTP sink and reassembled on the other side. Built the sink end to end: configuration, encoding, request building, integration tests and docs.",
-    "tags": ["rust", "observability"]
+    "tags": ["rust", "observability"],
+    "featured": true
   },
   {
     "repo": "keephq/keep",
@@ -86,7 +88,8 @@ window.CONTRIBUTIONS = [
     "title": "Let the Vector provider wrap multiple source types",
     "date": "2024-12-19",
     "problem": "Keep's Vector provider assumed one upstream source type, so alerts that arrived through Vector lost the identity of the system that actually raised them. Refactored it to wrap the wrapped provider's type, starting with Prometheus and Grafana.",
-    "tags": ["python", "observability"]
+    "tags": ["python", "observability"],
+    "featured": true
   },
   {
     "repo": "databendlabs/openraft",
@@ -94,7 +97,8 @@ window.CONTRIBUTIONS = [
     "title": "gRPC network and kv-memstore example",
     "date": "2024-12-14",
     "problem": "openraft shipped no gRPC transport example, leaving anyone building on it to infer the whole network layer from the trait definitions. Contributed a working one: gRPC network implementation, in-memory key-value store and a runnable cluster, in nineteen files.",
-    "tags": ["rust", "distributed-systems"]
+    "tags": ["rust", "distributed-systems"],
+    "featured": true
   },
   {
     "repo": "mxsm/rocketmq-rust",

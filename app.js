@@ -50,7 +50,7 @@
   /* ---------- rows ---------- */
 
   function renderRow(entry) {
-    var li = el('li', 'contrib');
+    var li = el('li', entry.featured ? 'contrib featured' : 'contrib');
 
     var head = el('div', 'contrib-head');
 
@@ -68,6 +68,10 @@
     head.appendChild(prs);
 
     var meta = el('div', 'meta');
+
+    if (entry.featured) {
+      meta.appendChild(el('span', 'featured-mark', '★ featured'));
+    }
 
     var language = languageOf(entry);
     if (language) meta.appendChild(el('span', 'badge lang-' + language, language));
@@ -106,6 +110,8 @@
   /* ---------- data ---------- */
 
   var entries = data.slice().sort(function (a, b) {
+    var fa = !!a.featured, fb = !!b.featured;
+    if (fa !== fb) return fa ? -1 : 1;
     return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
   });
 

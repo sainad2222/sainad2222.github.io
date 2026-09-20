@@ -347,6 +347,12 @@ h2 {
   transform: translateY(-1px);
 }
 
+/* Featured entries are pinned to the top by app.js and carry a left accent
+   bar, so the eye lands on them before the date-ordered list below. */
+.contrib.featured {
+  box-shadow: inset 3px 0 0 var(--accent), var(--shadow);
+}
+
 /* The title covers the whole row, so a click anywhere opens the PR. The repo
    and PR-number links sit above that overlay and keep their own targets. */
 .stretched::after {
@@ -391,6 +397,15 @@ h2 {
   gap: 12px;
   color: var(--text-faint);
   font-size: 12px;
+}
+
+.featured-mark {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  white-space: nowrap;
 }
 
 .badge {

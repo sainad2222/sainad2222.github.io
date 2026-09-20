@@ -35,6 +35,8 @@ from this file, so nothing else needs updating.
 - `tags` needs **exactly one language** (`rust`, `go` or `python`). It becomes the coloured
   badge on the row and the Language filter. Every other tag becomes an Area filter and
   shows as a chip under the description.
+- Add `"featured": true` to pin an entry above the date order, with a left accent bar and
+  a `★ featured` marker. Use it for the handful you most want read.
 - To add a language, put it in the `LANGUAGES` list at the top of `app.js` and add a
   `--lang-<name>` colour pair in `styles.css`, in both the dark and light blocks. Without
   that the row renders no badge.
