@@ -3,20 +3,20 @@
  * Star counts for every repo named in contributions.js, refreshed weekly.
  */
 window.STARS = {
-  "updated": "2026-10-12",
+  "updated": "2026-10-19",
   "repos": {
-    "GreptimeTeam/greptimedb": 6732,
-    "commonwarexyz/monorepo": 617,
-    "databendlabs/openraft": 2087,
-    "gitui-org/gitui": 22561,
-    "keephq/keep": 12396,
-    "mxsm/rocketmq-rust": 1524,
-    "open-telemetry/opentelemetry-collector-contrib": 4990,
-    "openobserve/openobserve": 22326,
-    "parseablehq/parseable": 2555,
-    "robustmq/robustmq": 1834,
-    "tokio-rs/tokio": 33419,
-    "vectordotdev/vector": 22691,
-    "vectordotdev/vrl": 245
+    "GreptimeTeam/greptimedb": 6747,
+    "commonwarexyz/monorepo": 618,
+    "databendlabs/openraft": 2097,
+    "gitui-org/gitui": 22584,
+    "keephq/keep": 12418,
+    "mxsm/rocketmq-rust": 1529,
+    "open-telemetry/opentelemetry-collector-contrib": 5005,
+    "openobserve/openobserve": 22429,
+    "parseablehq/parseable": 2559,
+    "robustmq/robustmq": 1842,
+    "tokio-rs/tokio": 33456,
+    "vectordotdev/vector": 22726,
+    "vectordotdev/vrl": 246
   }
 };
